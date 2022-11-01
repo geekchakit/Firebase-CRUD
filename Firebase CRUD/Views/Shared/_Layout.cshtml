@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Firebase_CRUD</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Firebase_CRUD.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Firebase_CRUD</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="FirebaseCRUD" asp-action="Index">Firebase</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - Firebase_CRUD - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/FirebaseScript.js" defer type="module" asp-append-version="true"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+    <script>
+        //filling table
+        var stdNo=0;
+        var tbody=document.getElementById('tbody');
+        function IndexOneFill(sid,fn,add,dt,phn)
+        {
+            var trow=document.createElement('tr');
+            var td1=document.createElement('td');
+            var td2=document.createElement('td');
+            var td3=document.createElement('td');
+            var td4=document.createElement('td');
+            var td5=document.createElement('td');
+            var td6=document.createElement('td');
+
+            td1.innerHTML=sid;
+            td2.innerHTML=fn;
+            td3.innerHTML=dt;
+            td4.innerHTML=add;
+            td5.innerHTML=phn;
+            td6.innerHTML='<a onclick="LoadEdit('+sid+')">Edit</a> <a href="">Delete</a>';
+            //href="https://localhost:7103/FirebaseCRUD/Edit/
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            trow.appendChild(td4);
+            trow.appendChild(td5);
+            trow.appendChild(td6);
+
+            tbody.appendChild(trow);
+        }
+        function IndexTableFill(StudentDocList)
+        {
+              var stdNo=0;
+              tbody.innerHTML="";
+              StudentDocList.forEach(element=>{
+                  IndexOneFill(element.Studentid,element.StudentName,element.adderess,element.degree,element.phoneno)
+              });
+        }
+        function LoadEdit(sid) 
+        {
+         localStorage.setItem("StudentId", sid);
+         window.location = "https://localhost:7103/FirebaseCRUD/Edit/";
+        }
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+</body>
+</html>

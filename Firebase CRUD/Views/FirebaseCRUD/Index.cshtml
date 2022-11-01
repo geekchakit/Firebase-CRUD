@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Firebase_CRUD.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Student_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fullname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.degree_title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phone)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="tbody"> </tbody>
+</table>
+
+<script type="module">
+    import { AddDocument ,Update ,Delete,GetAllList } from "/js/FirebaseScript.js";
+    const module = {};
+    module.GetAllList=GetAllList;
+    window.onload=GetAllList();    
+</script>
