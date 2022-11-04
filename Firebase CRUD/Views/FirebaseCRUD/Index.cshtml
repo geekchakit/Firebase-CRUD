@@ -34,8 +34,10 @@
 </table>
 
 <script type="module">
-    import { AddDocument ,Update ,Delete,GetAllList } from "/js/FirebaseScript.js";
+    import { AddDocument ,Update ,Delete,GetAllList,Query } from "/js/FirebaseScript.js";
     const module = {};
     module.GetAllList=GetAllList;
+    module.Query=Query;
     window.onload=GetAllList();    
+    window.onload=Query();    
 </script>

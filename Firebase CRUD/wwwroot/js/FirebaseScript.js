@@ -32,17 +32,26 @@ firebase.initializeApp(firebaseConfig);
 let dba = firebase.firestore();
 export async function AddDocument(sid, fn, add, dt, phn) {
     //create collection
-    var ref = doc(db, "StudentTable", sid);
+    //var ref = doc(db, "StudentTable", sid);
 
-    await setDoc(
-        ref, {
+    //await setDoc(
+    //    ref, {
+    //    Studentid: sid,
+    //    StudentName: fn,
+    //    adderess: add,
+    //    degree: dt,
+    //    phoneno: phn
+    //}
+    //)
+    var ref = doc(db, sid, fn);
+    dba.collection(sid).doc(fn).collection(add).doc('control_no').set({
         Studentid: sid,
         StudentName: fn,
         adderess: add,
         degree: dt,
         phoneno: phn
-    }
-    )
+
+    })
         .then(() => {
             alert("added");
         })
@@ -101,7 +110,19 @@ export async function GetAllList() {
 export async function GetOne() {
     let sid = localStorage.getItem("StudentId");
     if (sid != null) {
-    var ref = doc(db, "StudentTable", sid);
+        var ref = doc(db, "StudentTable", sid);
         console.log(sid);
     }
+}
+export async function Query() {
+    dba.collection('sff')
+        .doc('fwfsf')
+        .collection('wfwqf')
+        .onSnapshot((querySnapshot) => {
+            var dta = [];
+            querySnapshot.forEach(documents => {
+                dta.push(documents.data());
+            });
+            console.log(dta);
+        })
 }
